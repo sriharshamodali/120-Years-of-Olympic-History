@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <base href="/"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="olymppicHistory">
+      
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+      <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
+      <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+      <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.3.js"></script>
+      
+      <!-- endbower -->
+      <!-- endbuild -->
+  
+          <!-- build:js({.tmp,app}) scripts/scripts.js -->
+          <script src="scripts/app.js"></script>
+          <script src="scripts/controllers/filteredsearch.js"></script>
+          <script src="scripts/controllers/welcome.js"></script>
+          <script src="scripts/controllers/athletes.js"></script>
+          <script src="scripts/controllers/countries.js"></script>
+          <script src="scripts/controllers/sports.js"></script>
+          <script src="scripts/controllers/insights.js"></script>
+          <script src="scripts/controllers/olympicgames.js"></script>
+          <!-- endbuild -->
+      <div ng-cloak>
+        <md-content class="md-padding">
+            <md-nav-bar
+                md-no-ink-bar="disableInkBar"
+                md-selected-nav-item="currentNavItem"> 
+                <md-nav-item md-nav-href="https://www.olympic.org/" name="olympicRings">
+                        <img src="../images/rings.png"/>
+                </md-nav-item>                           
+                <a class="NoDecoration" href="#!FilteredSearch"><md-nav-item md-nav-click="goto('FilteredSearch')" name="FilteredSearch">
+                        Filtered Search
+                </md-nav-item></a>
+                <a class="NoDecoration" href="#!Insights"><md-nav-item md-nav-click="goto('Insights')" name="Insights">
+                        Insights
+                </md-nav-item></a>
+                <a class="NoDecoration" href="#!OlympicGames"><md-nav-item md-nav-click="goto('OlympicGames')" name="OlympicGames">
+                        Olympic Games
+                </md-nav-item></a>
+                <a class="NoDecoration" href="#!Countries"><md-nav-item md-nav-click="goto('Countries')" name="Countries">
+                        Countries
+                </md-nav-item></a>
+                <a class="NoDecoration" href="#!Sports"><md-nav-item md-nav-click="goto('Sports')" name="Sports">
+                        Sports
+                </md-nav-item></a>
+                <a class="NoDecoration" href="#!Athletes"><md-nav-item md-nav-click="goto('Athletes')" name="Athletes">
+                        Athletes
+                </md-nav-item></a>
+                <span flex></span>
+                <a title="Home" class="NoDecoration" href="#!welcome"><md-nav-item md-nav-click="goto('welcome')" name="welcome">
+                        <i class="fas fa-home fa-2x"></i>
+                </md-nav-item></a>
+              </md-nav-bar>
+        </md-content>
+    </div>
+
+    <div>
+    <div ng-view=""></div>
+    </div>
+    
+</body>
+</html>

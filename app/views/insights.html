@@ -1,0 +1,184 @@
+<!-- Required Scripts and CSS -->
+<script src="/./bower_components/highcharts/highcharts.js"></script>
+<script src="/./bower_components/highcharts/modules/heatmap.js"></script>
+<script src="/./bower_components/highcharts/modules/export-data.js"></script>
+<script src="/./bower_components/highcharts/modules/exporting.js"></script>
+<script src="/./bower_components/highcharts/modules/series-label.js"></script>
+<script src="/./bower_components/highcharts/modules/data.js"></script>
+<script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+<!-- <script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script> -->
+
+<link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+
+<div>
+    <md-card>
+        <md-card-content>
+            <md-radio-group layout="row" layout-align="center center" ng-model="insightsCategory" ng-init="insightsCategory='top10'" ng-change="changeCategory()">
+                <label style="padding: 5px;">Insights Category: </label>
+                <md-radio-button value="top10" ng-model="insightsCategory.top10" data-ng-checked="true">Top 10</md-radio-button>
+                <md-radio-button value="trends" ng-model="insightsCategory.trends">Trends</md-radio-button>
+                <md-radio-button value="other" ng-model="insightsCategory.other">Other</md-radio-button>
+            </md-radio-group>
+        </md-card-content>
+    </md-card>
+    <div ng-show="insightsCategory == 'other'">
+        <md-card>
+                <md-card-content>
+                        <div id="gymWeight" class="leftGraph"></div>
+                </md-card-content>           
+        </md-card>
+        <md-card>
+                <md-card-content>
+                        <div id="seniorwinners" class="leftGraph"></div>
+                </md-card-content>           
+        </md-card>
+        <md-card>
+                <md-card-content>
+                        <div id="bballheight" class="leftGraph"></div>
+                </md-card-content>           
+        </md-card>
+        <!-- <md-card>
+                <md-card-content>
+                        <h>Countries Leaderboard From 1896 - 2016 Olympic Years</h>
+                        <div class="tableContainer">
+                                <md-table-container>
+                                        <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                                          <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                                            <tr md-row>
+                                              <th class="tableHeading" md-column md-numeric>Year</th>
+                                              <th class="tableHeading" md-column md-numeric>First Position</th>
+                                              <th class="tableHeading" md-column md-numeric>Second Position</th>
+                                              <th class="tableHeading" md-column md-numeric>Third Position</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody md-body>
+                                            <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="result in countriesLeader">
+                                              <td class="tableRow" md-cell></td>
+                                              <td class="tableRow" md-cell></td>
+                                              <td class="tableRow" md-cell></td>
+                                              <td class="tableRow" md-cell></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </md-table-container>
+                        </div>
+                </md-card-content>
+            </md-card> -->
+            
+    </div>
+    <div ng-show="insightsCategory == 'top10'">
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="TopSportsCountsCategory" ng-init="TopSportsCountsCategory='summer'"
+                        ng-change="changeTopSportsCountsCategory()">
+                        <md-radio-button value="summer" ng-model="TopSportsCountsCategory.summer" data-ng-checked="true">Summer Olympics</md-radio-button>
+                        <md-radio-button value="winter" ng-model="TopSportsCountsCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                <div ng-show="TopSportsCountsCategory == 'summer'" id="TopSportsCounts_summer" class="leftGraph"></div>
+                <div ng-show="TopSportsCountsCategory == 'winter'" id="TopSportsCounts_winter" class="leftGraph"></div>
+            </md-card-content>
+        </md-card> 
+        <md-card>
+            <md-card-content>
+                <div id="BestSexRatio" class="leftGraph"></div>
+            </md-card-content>
+        </md-card> 
+        <md-card>
+                <md-card-content>
+                    <div id="favsports" class="leftGraph"></div>
+                </md-card-content>
+        </md-card> 
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="TopMedalCountCategory" ng-init="TopMedalCountCategory='summer'"
+                        ng-change="changeTopMedalCountCategory()">
+                        <md-radio-button value="summer" ng-model="TopMedalCountCategory.summer" data-ng-checked="true">Summer Olympics</md-radio-button>
+                        <md-radio-button value="winter" ng-model="TopMedalCountCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                <div ng-show="TopMedalCountCategory == 'summer'" id="TopMedalCount_summer" class="leftGraph"></div>
+                <div ng-show="TopMedalCountCategory == 'winter'" id="TopMedalCount_winter" class="leftGraph"></div>
+            </md-card-content>
+        </md-card> 
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="TopMedalWinnersCategory" ng-init="TopMedalWinnersCategory='male'"
+                        ng-change="changeTopMedalWinnersCategory()">
+                        <md-radio-button value="male" ng-model="TopMedalWinnersCategory.male" data-ng-checked="true">Male</md-radio-button>
+                        <md-radio-button value="female" ng-model="TopMedalWinnersCategory.female">Female</md-radio-button>
+                    </md-radio-group>
+                <div ng-show="TopMedalWinnersCategory == 'male'" id="TopMedalWinners_male" class="leftGraph"></div>
+                <div ng-show="TopMedalWinnersCategory == 'female'" id="TopMedalWinners_female" class="leftGraph"></div>
+            </md-card-content>
+        </md-card> 
+        
+    </div>
+    <div ng-show="insightsCategory == 'trends'">
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="GenderRatioCategory" ng-init="GenderRatioCategory='summer'" ng-change="changeGenderRatioCategory()">
+                        <md-radio-button value="summer" ng-model="GenderRatioCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="GenderRatioCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="GenderRatioCategory == 'summer'" id="GenderRatio_summer" class="rightGraph"></div>
+                    <div ng-show="GenderRatioCategory == 'winter'" id="GenderRatio_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="MeanAgeCategory" ng-init="MeanAgeCategory='summer'" ng-change="changeGenderRatioCategory()">
+                        <md-radio-button value="summer" ng-model="MeanAgeCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="MeanAgeCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="MeanAgeCategory == 'summer'" id="MeanAge_summer" class="rightGraph"></div>
+                    <div ng-show="MeanAgeCategory == 'winter'" id="MeanAge_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="GenderPartCategory" ng-init="GenderPartCategory='summer'" ng-change="changeGenderRatioCategory()">
+                        <md-radio-button value="summer" ng-model="GenderPartCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="GenderPartCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="GenderPartCategory == 'summer'" id="GenderPart_summer" class="rightGraph"></div>
+                    <div ng-show="GenderPartCategory == 'winter'" id="GenderPart_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="GrowthPercentageCategory" ng-init="GrowthPercentageCategory='summer'" ng-change="changeGrowthPercentageCategory()">
+                        <md-radio-button value="summer" ng-model="GrowthPercentageCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="GrowthPercentageCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="GrowthPercentageCategory == 'summer'" id="GrowthPercentage_summer" class="rightGraph"></div>
+                    <div ng-show="GrowthPercentageCategory == 'winter'" id="GrowthPercentage_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="NumberChangeCategory" ng-init="NumberChangeCategory='summer'" ng-change="changeNumberChangeCategory()">
+                        <md-radio-button value="summer" ng-model="NumberChangeCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="NumberChangeCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="NumberChangeCategory == 'summer'" id="NumberChange_summer" class="rightGraph"></div>
+                    <div ng-show="NumberChangeCategory == 'winter'" id="NumberChange_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="NationsParticipationCategory" ng-init="NationsParticipationCategory='summer'" ng-change="changeNumberChangeCategory()">
+                        <md-radio-button value="summer" ng-model="NationsParticipationCategory.summer" data-ng-checked="true">Summer Olympics
+                        </md-radio-button>
+                        <md-radio-button value="winter" ng-model="NationsParticipationCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                    <div ng-show="NationsParticipationCategory == 'summer'" id="NationsParticipation_summer" class="rightGraph"></div>
+                    <div ng-show="NationsParticipationCategory == 'winter'" id="NationsParticipation_winter" class="rightGraph"></div>
+            </md-card-content>
+        </md-card>
+    </div>  
+</div>
+

@@ -1,0 +1,85 @@
+<!-- <div class="games_background">
+    <form id="search-form_3">
+        <input type="text" class="search_3"/>
+        <input type="submit" class="submit_3" value="Search" />
+    </form>
+</div> -->
+<md-card>
+    <md-card-content>
+        <div layout="row" layout-align="center center">
+            <md-input-container>
+                <label>Olympic Season</label>
+                <md-select ng-model="selectedSeason" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Season --
+                    </md-option>
+                    <md-option ng-repeat="season in olympicGameSeasons" ng-value="season">
+                                {{season}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container ng-show="selectedSeason != ''">
+                <label>Olympic Year</label>
+                <md-select ng-model="selectedYear" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Year --
+                    </md-option>
+                    <md-option ng-repeat="year in olympicGameYears_summer" ng-value="year" ng-if="selectedSeason == 'Summer'">
+                                {{year}}
+                    </md-option>
+                    <md-option ng-repeat="year in olympicGameYears_winter" ng-value="year" ng-if="selectedSeason == 'Winter'">
+                                {{year}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container ng-show="selectedSeason != ''">
+                    <label>Gender</label>
+                    <md-select ng-model="selectedGender" class="dropdown">
+                        <md-option value="{{null}}">
+                                    -- Select Gender --
+                        </md-option>
+                        <md-option ng-repeat="gender in olympicGameGenders" ng-value="gender">
+                                    {{gender}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+        </div>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-disabled= "selectedSeason == '' || selectedYear == '' || selectedGender == ''" ng-click="searchResult(selectedSeason, selectedYear)">Search</md-button>
+            <md-button class="md-raised" ng-click="reset()">Reset</md-button>
+        </section>
+    </md-card-content>
+</md-card>
+
+<div class="games_background" ng-show="!showResult">
+    <!-- <form id="search-form_3">
+        <input type="text" class="search_3"/>
+        <input type="submit" class="submit_3" value="Search" />
+    </form> -->
+</div>
+
+<md-card ng-show="showResult">
+    <h style="text-align:center;"><b>Top 10 athletes with highest medal count in {{selectedSeason.toLowerCase()}} {{selectedYear}} olympic game</b></h>
+    <md-card-content>
+            <div class="tableContainer">
+                    <md-table-container>
+                            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                              <thead md-head>
+                                <tr md-row>
+                                  <th class="tableHeading" md-column md-numeric>Athlete Name</th>
+                                  <th class="tableHeading" md-column md-numeric>Country</th>
+                                  <th class="tableHeading" md-column md-numeric>Medal count</th>
+                                </tr>
+                              </thead>
+                              <tbody md-body>
+                                <tr md-row ng-repeat="result in tableResult" md-auto-select>
+                                  <td class="tableRow" md-cell>{{result.athleteName}}</td>
+                                  <td class="tableRow" md-cell>{{result.country}}</td>
+                                  <td class="tableRow" md-cell>{{result.medalCount}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </md-table-container>
+            </div>
+    </md-card-content>
+</md-card>

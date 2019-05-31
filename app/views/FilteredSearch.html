@@ -1,0 +1,138 @@
+<md-card>
+    <md-card-content>
+        <div layout="row" layout-align="center center">
+            <md-input-container>
+                <label>Olympic Season</label>
+                <md-select ng-model="selectedSeason" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Season --
+                    </md-option>
+                    <md-option ng-repeat="season in olympicSeasons" ng-value="season">
+                                {{season}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                    <label>City</label>
+                    <md-select ng-model="selectedCity" class="dropdown">
+                        <md-option value="{{null}}">
+                                    -- Select City --
+                        </md-option>
+                        <md-option ng-repeat="city in olympicCities_summer" ng-value="city" ng-if="selectedSeason == 'Summer'" ng-click="yearsByCity()">
+                                    {{city}}
+                        </md-option>
+                        <md-option ng-repeat="city in olympicCities_winter" ng-value="city" ng-if="selectedSeason == 'Winter'" ng-click="yearsByCity()">
+                                {{city}}
+                        </md-option>                 
+                    </md-select>
+                </md-input-container>
+            <md-input-container>
+                <label>Year</label>
+                <md-select ng-model="selectedYear" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Year --
+                    </md-option>
+                    <md-option ng-repeat="year in olympicYears_summer" ng-value="year" ng-if="selectedSeason == 'Summer' && selectedCity == ''" ng-click="eventsBySport()">
+                                {{year}}
+                    </md-option>
+                    <md-option ng-repeat="year in olympicYears_winter" ng-value="year" ng-if="selectedSeason == 'Winter' && selectedCity == ''" ng-click="eventsBySport()">
+                                {{year}}
+                    </md-option>
+                    <md-option ng-repeat="year in olympicYears" ng-value="year" ng-if="selectedCity != ''" ng-click="eventsBySport(selectedYear)">
+                            {{year}}
+                        </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>Olympic Sport</label>
+                <md-select ng-model="selectedSport" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Sport --
+                    </md-option>
+                    <md-option ng-repeat="sport in olympicSports_summer" ng-value="sport" ng-if="selectedSeason == 'Summer' && selectedYear == ''" ng-click="eventsBySport()">
+                                {{sport}}
+                    </md-option>
+                    <md-option ng-repeat="sport in olympicSports_winter" ng-value="sport" ng-if="selectedSeason == 'Winter' && selectedYear == ''" ng-click="eventsBySport()">
+                            {{sport}}
+                </md-option>
+                <md-option ng-repeat="sport in olympicSports" ng-value="sport" ng-if="selectedSeason != '' && selectedYear != ''" ng-click="eventsBySport()">
+                        {{sport}}
+                </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <md-input-container>
+                <label>Category</label>
+                <md-select ng-model="selectedCategory" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Category --
+                    </md-option>
+                    <md-option ng-repeat="category in olympicCategories" ng-value="category" ng-click="eventsBySport()">
+                                {{category}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>Olympic Event</label>
+                <md-select ng-model="selectedEvent" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Event --
+                    </md-option>
+                    <md-option ng-repeat="event in olympicEvents" ng-value="event">
+                                {{event}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>Medal</label>
+                <md-select ng-model="selectedMedal" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Medal --
+                    </md-option>
+                    <md-option ng-repeat="medal in olympicMedals" ng-value="medal">
+                                {{medal}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </md-card-content>
+    <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" ng-click="searchResult(selectedGame, selectedYear, selectedSeason, selectedSport, selectedAthlete,$event)">Apply Filters</md-button>
+            <md-button class="md-raised" ng-click="reset()">Reset</md-button>
+    </section>
+</md-card>
+<div style="text-align:center;margin-top:5px;" ng-show="showResult"> 
+    <h3>Result</h3>
+</div>
+
+
+<md-card ng-show="showResult">
+    <md-card-content>
+            <div class="tableContainer">
+                    <md-table-container>
+                            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                              <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                                <tr md-row>
+                                  <th class="tableHeading" md-column md-numeric>Game</th>
+                                  <th class="tableHeading" md-column md-numeric>Year</th>
+                                  <th class="tableHeading" md-column md-numeric>Season</th>
+                                  <th class="tableHeading" md-column md-numeric>Sport</th>
+                                  <th class="tableHeading" md-column md-numeric>Athlete</th>
+                                  <th class="tableHeading" md-column md-numeric>Medal Won</th>
+                                </tr>
+                              </thead>
+                              <tbody md-body>
+                                <tr md-row md-select="dessert" md-select-id="name" md-auto-select>
+                                  <td class="tableRow" md-cell><a class="interLink" href="#!OlympicGames">{{selectedGame}}</a></td>
+                                  <td class="tableRow" md-cell>{{selectedYear}}</td>
+                                  <td class="tableRow" md-cell>{{selectedSeason}}</td>
+                                  <td class="tableRow" md-cell><a class="interLink" href="#!Sports">{{selectedSport}}</a></td>
+                                  <td class="tableRow" md-cell><a class="interLink" href="#!Athletes">{{selectedAthlete}}</a></td>
+                                  <td class="tableRow" md-cell>Gold</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </md-table-container>
+            </div>
+    </md-card-content>
+</md-card>

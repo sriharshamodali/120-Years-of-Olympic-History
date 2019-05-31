@@ -1,0 +1,116 @@
+<script src="/./bower_components/highcharts/highcharts.js"></script>
+<script src="/./bower_components/highcharts/modules/heatmap.js"></script>
+<script src="/./bower_components/highcharts/modules/export-data.js"></script>
+<script src="/./bower_components/highcharts/modules/exporting.js"></script>
+<script src="/./bower_components/highcharts/modules/series-label.js"></script>
+<script src="/./bower_components/highcharts/modules/data.js"></script>
+<script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+<md-card>
+    <md-card-content>
+            <div layout="row" layout-align="center center">
+                    <md-input-container>
+                            <label>Olympic Season</label>
+                            <md-select ng-model="selectedSeason" class="dropdown">
+                                <md-option value="{{null}}">
+                                            -- Select Season --
+                                </md-option>
+                                <md-option ng-repeat="season in olympicSeasons" ng-value="season">
+                                            {{season}}
+                                </md-option>
+                            </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                            <label>Olympic Sport</label>
+                            <md-select ng-model="selectedSport" class="dropdown" ng-disabled="selectedSeason == ''">
+                                <md-option value="{{null}}">
+                                            -- Select Sport --
+                                </md-option>
+                                <md-option ng-repeat="sport in olympicSports_summer" ng-value="sport" ng-if="selectedSeason == 'Summer'">
+                                            {{sport}}
+                                </md-option>
+                                <md-option ng-repeat="sport in olympicSports_winter" ng-value="sport" ng-if="selectedSeason == 'Winter'">
+                                        {{sport}}
+                                </md-option>
+                            </md-select>
+                    </md-input-container>
+            </div>
+            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button class="md-raised md-primary" ng-disabled= "selectedSeason == '' || selectedSport == ''" ng-click="searchResult(selectedSport)">Search</md-button>
+                <md-button class="md-raised" ng-click="reset()">Reset</md-button>
+            </section>
+    </md-card-content>
+</md-card>
+
+<div class="sports_background" ng-show="showBackground">
+    <!-- <form id="search-form_3">
+        <input type="text" class="search_3"/>
+        <input type="submit" class="submit_3" value="Search" />
+    </form> -->
+</div>
+<md-card ng-show="!showBackground">
+    <div style="text-align:center;margin-top:5px;"> 
+                <h3>Top Athletes In Men By Medal Count</h3>
+    </div>
+    <md-card-content>
+            <div class="tableContainer">
+                    <md-table-container>
+                            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                              <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                                <tr md-row>
+                                  <th class="tableHeading" md-column md-numeric>Name</th>
+                                  <th class="tableHeading" md-column md-numeric>Country</th>
+                                  <th class="tableHeading" md-column md-numeric>Medal Count</th>
+                                  <th class="tableHeading" md-column md-numeric>Rank</th>
+                                </tr>
+                              </thead>
+                              <tbody md-body>
+                                <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="athlete_men in topAthletesByMedalCountMens">
+                                  <td class="tableRow" md-cell>{{athlete_men.name}}</td>
+                                  <td class="tableRow" md-cell>{{athlete_men.country}}</td>
+                                  <td class="tableRow" md-cell>{{athlete_men.medalCount}}</td>
+                                  <td class="tableRow" md-cell>{{athlete_men.rank}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </md-table-container>
+            </div>
+    </md-card-content>
+</md-card>
+<md-card ng-show="!showBackground">
+        <div style="text-align:center;margin-top:5px;"> 
+                <h3>Top Athletes In Women By Medal Count</h3>
+        </div>
+        <md-card-content>
+                <div class="tableContainer">
+                        <md-table-container>
+                                <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                                  <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                                    <tr md-row>
+                                      <th class="tableHeading" md-column md-numeric>Name</th>
+                                      <th class="tableHeading" md-column md-numeric>Country</th>
+                                      <th class="tableHeading" md-column md-numeric>Medal Count</th>
+                                      <th class="tableHeading" md-column md-numeric>Rank</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody md-body>
+                                    <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="athlete_women in topAthletesByMedalCountWomen">
+                                      <td class="tableRow" md-cell>{{athlete_women.name}}</td>
+                                      <td class="tableRow" md-cell>{{athlete_women.country}}</td>
+                                      <td class="tableRow" md-cell>{{athlete_women.medalCount}}</td>
+                                      <td class="tableRow" md-cell>{{athlete_women.rank}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </md-table-container>
+                </div>
+        </md-card-content>
+    </md-card>
+<md-card ng-show="!showBackground">
+    <div id="Participation" class="rightGraph"></div>
+</md-card>
+<md-card ng-show="!showBackground">
+    <div id="AthleteParticipation" class="rightGraph"></div>
+</md-card>
+<md-card ng-show="!showBackground">
+    <div id="popularityInEvents" class="rightGraph"></div>
+</md-card>

@@ -1,0 +1,53 @@
+
+<div class="athlete_background">
+    <form id="search-form_3" autocomplete="off">
+        <input type="text" class="search_3" name="Search" ng-change="changeFunction()" ng-model="athlete" ng-model-options="{ debounce: 500 }" />
+        <input type="submit" class="submit_3" value="Search" ng-click="search()"/>
+        <div ng-show="showOptions && athlete != ''">           
+            <!-- <ul style="list-style-type:none; height: 200px; overflow: auto">
+                <li ng-repeat="athlete in athletes" >{{athlete.name}}</li>
+            </ul>  -->
+            <md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+                <md-menu-item ng-repeat="athlete in athletes">
+                    <md-button ng-click="setAthlete(athlete.name, athlete.id)">
+                            {{athlete.name}}
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </div>
+    </form>
+    <md-card ng-show="showResult && athlete != ''">
+            <md-card-content>
+                    <div class="tableContainer">
+                            <md-table-container>
+                                    <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                                      <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                                        <tr md-row>
+                                          <th class="tableHeading" md-column md-numeric>Athlete Name</th>
+                                          <th class="tableHeading" md-column md-numeric>Age</th>
+                                          <!-- <th class="tableHeading" md-column md-numeric>Weight</th> -->
+                                          <th class="tableHeading" md-column md-numeric>Country</th>
+                                          <th class="tableHeading" md-column md-numeric>Event</th>
+                                          <th class="tableHeading" md-column md-numeric>Game</th>
+                                          <th class="tableHeading" md-column md-numeric>Medal Won</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody md-body>
+                                        <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="athleteInfo in searchResult">
+                                          <td class="tableRow" md-cell>{{athleteInfo.name}}</td>
+                                          <td class="tableRow" md-cell>{{athleteInfo.age}}</td>
+                                          <!-- <td class="tableRow" md-cell>{{athleteInfo.weight}}</td> -->
+                                          <td class="tableRow" md-cell>{{athleteInfo.country}}</td>
+                                          <td class="tableRow" md-cell>{{athleteInfo.event}}</td>
+                                          <td class="tableRow" md-cell>{{athleteInfo.game}}</td>
+                                          <td class="tableRow" md-cell>{{athleteInfo.medal}}</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </md-table-container>
+                                  
+                                  
+                    </div>
+            </md-card-content>
+        </md-card>
+</div>

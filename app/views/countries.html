@@ -1,0 +1,60 @@
+<!-- <div class="countries_background">
+    <form id="search-form_3">
+        <input type="text" class="search_3"/>
+        <input type="submit" class="submit_3" value="Search" />
+    </form>
+</div> -->
+<script src="/./bower_components/highcharts/highcharts.js"></script>
+<script src="/./bower_components/highcharts/modules/heatmap.js"></script>
+<script src="/./bower_components/highcharts/modules/export-data.js"></script>
+<script src="/./bower_components/highcharts/modules/exporting.js"></script>
+<script src="/./bower_components/highcharts/modules/series-label.js"></script>
+<script src="/./bower_components/highcharts/modules/data.js"></script>
+<script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+<md-card>
+    <md-card-content>
+        <div layout="row" layout-align="center center">
+            <md-input-container>
+                <label>Country</label>
+                <md-select ng-model="selectedCountry" class="dropdown">
+                    <md-option value="{{null}}">
+                                -- Select Country --
+                    </md-option>
+                    <md-option ng-repeat="country in olympicCountries" ng-value="country">
+                                {{country}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button class="md-raised md-primary" ng-disabled= "selectedCountry == ''" ng-click="searchResult(selectedCountry)">Search</md-button>
+                <md-button class="md-raised" ng-click="reset()">Reset</md-button>
+            </section>
+        </div>
+    </md-card-content>
+</md-card>
+<div class="countries_background" ng-show="!showResult">
+    <!-- <form id="search-form_3">
+        <input type="text" class="search_3"/>
+        <input type="submit" class="submit_3" value="Search" />
+    </form> -->
+</div>
+<md-card ng-show="showResult">
+    <md-card>
+            <md-card-content>
+                    <md-radio-group layout="row" ng-model="TopSportsCountsCategory" ng-init="TopSportsCountsCategory='summer'"
+                        ng-change="changeTopSportsCountsCategory()">
+                        <md-radio-button value="summer" ng-model="TopSportsCountsCategory.summer" data-ng-checked="true">Summer Olympics</md-radio-button>
+                        <md-radio-button value="winter" ng-model="TopSportsCountsCategory.winter">Winter Olympics</md-radio-button>
+                    </md-radio-group>
+                <div ng-show="TopSportsCountsCategory == 'summer'" id="ParticipationTrend_summer" class="leftGraph"></div>
+                <div ng-show="TopSportsCountsCategory == 'winter'" id="ParticipationTrend_winter" class="leftGraph"></div>
+            </md-card-content>
+    </md-card> 
+        <!-- <div id="ParticipationTrend_summer" class="rightGraph"></div> -->
+</md-card>
+<md-card ng-show="showResult">
+        <div id="SuccessRate" class="rightGraph"></div>
+</md-card>
+<md-card ng-show="showResult">
+        <div id="WinnerGenderRatio" class="rightGraph"></div>
+</md-card>
